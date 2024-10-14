@@ -5,16 +5,16 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:orientation="vertical"
-    android:background="#353535"
-    >
+    android:background="#353535">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TV Channel"
         android:layout_gravity="center"
         android:textSize="40sp"
-        android:textColor="#009688"
-        />
+        android:textColor="#009688" />
+
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
         android:layout_width="match_parent"
@@ -25,167 +25,14 @@
         android:layout_marginBottom="1dp"
         android:foregroundGravity="center_vertical">
 
-        <!-- child view -->
+        <!-- Dynamic LinearLayout container -->
         <LinearLayout
+            android:id="@+id/channelContainer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:foregroundGravity="center"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal" />
 
-            <!-- LinearLayout children -->
-            <TextView
-                android:id="@+id/channel24"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/card_background"
-                android:padding="15dp"
-                android:text="Channel 24"
-                android:focusableInTouchMode="true"
-                android:textColor="@color/white"
-                android:textSize="70sp"
-                android:layout_margin="16dp"
-                android:layout_weight="1"
-                android:elevation="4dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center" />
-            <TextView
-                android:id="@+id/jamunatv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/card_background"
-                android:padding="15dp"
-                android:text="Jamuna TV"
-                android:focusableInTouchMode="true"
-                android:textColor="@color/white"
-                android:textSize="70sp"
-                android:layout_margin="16dp"
-                android:layout_weight="1"
-                android:elevation="4dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center" />
-            <TextView
-                android:id="@+id/independenttv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/card_background"
-                android:padding="15dp"
-                android:text="Independent TV"
-                android:textColor="@color/white"
-                android:textSize="70sp"
-                android:layout_margin="16dp"
-                android:layout_weight="1"
-                android:elevation="4dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center" />
-            <TextView
-                android:id="@+id/somoytv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/card_background"
-                android:padding="15dp"
-                android:text="Somoy TV"
-                android:textColor="@color/white"
-                android:textSize="70sp"
-                android:layout_margin="16dp"
-                android:layout_weight="1"
-                android:elevation="4dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center" />
-            <TextView
-                android:id="@+id/news24"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/card_background"
-                android:padding="15dp"
-                android:text="News24 TV"
-                android:textColor="@color/white"
-                android:textSize="70sp"
-                android:layout_margin="16dp"
-                android:layout_weight="1"
-                android:elevation="4dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center" />
-            <TextView
-                android:id="@+id/channeli"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/card_background"
-                android:padding="15dp"
-                android:text="Channel I"
-                android:textColor="@color/white"
-                android:textSize="70sp"
-                android:layout_margin="16dp"
-                android:layout_weight="1"
-                android:elevation="4dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center" />
-            <TextView
-                android:id="@+id/atnnews"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/card_background"
-                android:padding="15dp"
-                android:text="ATN News"
-                android:textColor="@color/white"
-                android:textSize="70sp"
-                android:layout_margin="16dp"
-                android:layout_weight="1"
-                android:elevation="4dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center" />
-            <TextView
-                android:id="@+id/rtv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/card_background"
-                android:padding="15dp"
-                android:text="R TV"
-                android:textColor="@color/white"
-                android:textSize="70sp"
-                android:layout_margin="16dp"
-                android:layout_weight="1"
-                android:elevation="4dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center" />
-            <TextView
-                android:id="@+id/dbcnews"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/card_background"
-                android:padding="15dp"
-                android:text="DBC News"
-                android:textColor="@color/white"
-                android:textSize="70sp"
-                android:layout_margin="16dp"
-                android:layout_weight="1"
-                android:elevation="4dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center" />
-            <TextView
-                android:id="@+id/ntv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/card_background"
-                android:padding="15dp"
-                android:text="NTV Live"
-                android:textColor="@color/white"
-                android:textSize="70sp"
-                android:layout_margin="16dp"
-                android:layout_weight="1"
-                android:elevation="4dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center" />
-        </LinearLayout>
     </HorizontalScrollView>
 </LinearLayout>

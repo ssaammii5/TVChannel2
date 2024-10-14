@@ -5,9 +5,11 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.*
@@ -65,9 +67,9 @@ class MainActivity : AppCompatActivity() {
                         val type: Type = object : TypeToken<Map<String, String>>() {}.type
                         channelMap = gson.fromJson(jsonString, type)
 
-                        // Once JSON is fetched, set the onClickListeners
+                        // Once JSON is fetched, create dynamic TextViews
                         runOnUiThread {
-                            setChannelListeners()
+                            createDynamicChannelViews()
                         }
                     } catch (e: Exception) {
                         Log.e("MainActivity", "Failed to parse JSON", e)
@@ -84,41 +86,46 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun setChannelListeners() {
-        val channelIds = mapOf(
-            R.id.channel24 to "channel24",
-            R.id.jamunatv to "jamunatv",
-            R.id.independenttv to "independenttv",
-            R.id.somoytv to "somoytv",
-            R.id.news24 to "news24",
-            R.id.channeli to "channeli",
-            R.id.atnnews to "atnnews",
-            R.id.rtv to "rtv",
-            R.id.dbcnews to "dbcnews",
-            R.id.ntv to "ntv"
-        )
+    private fun createDynamicChannelViews() {
+        val channelContainer = findViewById<LinearLayout>(R.id.channelContainer)
 
-        channelIds.forEach { (textViewId, channelKey) ->
-            val textView = findViewById<TextView>(textViewId)
-            if (textView != null) {
-                val liveUrl = channelMap[channelKey]
-                liveUrl?.let { url ->  // Explicitly name the parameter `url`
-                    textView.setOnClickListener {
-                        val intentApp = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
-                            `package` = "com.teamsmart.videomanager.tv"
-                        }
-                        val intentBrowser = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-
-                        try {
-                            startActivity(intentApp)
-                        } catch (ex: ActivityNotFoundException) {
-                            startActivity(intentBrowser)
-                        }
-                    }
+        channelMap.forEach { (channelName, channelUrl) ->
+            // Dynamically create TextView for each channel
+            val textView = TextView(this).apply {
+                text = channelName
+                textSize = 70f
+                setPadding(15, 15, 15, 15)
+                setBackgroundResource(R.drawable.card_background) // Background with shadow if needed
+                setTextColor(ContextCompat.getColor(context, R.color.white))
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    marginEnd = 16
+                    marginStart = 16
                 }
-            } else {
-                Log.w("MainActivity", "TextView not found for $channelKey")
+                isClickable = true
+                isFocusable = true
+                isFocusableInTouchMode = true // Enable focusable in touch mode
+                gravity = android.view.Gravity.CENTER
             }
+
+            // Set the click listener for each dynamically created TextView
+            textView.setOnClickListener {
+                val intentApp = Intent(Intent.ACTION_VIEW, Uri.parse(channelUrl)).apply {
+                    `package` = "com.teamsmart.videomanager.tv"
+                }
+                val intentBrowser = Intent(Intent.ACTION_VIEW, Uri.parse(channelUrl))
+
+                try {
+                    startActivity(intentApp)
+                } catch (ex: ActivityNotFoundException) {
+                    startActivity(intentBrowser)
+                }
+            }
+
+            // Add the dynamically created TextView to the container
+            channelContainer.addView(textView)
         }
     }
 }
