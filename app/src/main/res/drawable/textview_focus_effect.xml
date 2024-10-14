@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Focused state -->
+    <item android:state_focused="true">
+        <layer-list>
+            <!-- Focus shadow layer -->
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#FF9800" /> <!-- Orange shadow for focus -->
+                    <corners android:radius="12dp" />
+                </shape>
+            </item>
+            <!-- Focus background layer -->
+            <item android:top="4dp" android:left="2dp" android:right="2dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="#8A8A8A" /> <!-- Darker gray for focus -->
+                    <corners android:radius="12dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+    <!-- Default state (non-focused) -->
+    <item>
+        <layer-list>
+            <!-- Default shadow layer -->
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#D3D3D3" /> <!-- Light shadow color -->
+                    <corners android:radius="12dp" />
+                </shape>
+            </item>
+            <!-- Default background layer -->
+            <item android:top="4dp" android:left="2dp" android:right="2dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="#595959" /> <!-- Original background color -->
+                    <corners android:radius="12dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>
