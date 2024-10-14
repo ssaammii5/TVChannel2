@@ -43,7 +43,9 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
-    //implementation("org.mongodb:mongodb-driver-sync:4.7.1")
+
+    implementation("com.squareup.okhttp3:okhttp:4.9.1")
+    implementation("com.google.code.gson:gson:2.8.8")
 
 
     testImplementation(libs.junit)
