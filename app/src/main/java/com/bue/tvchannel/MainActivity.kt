@@ -10,80 +10,30 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import okhttp3.*
-import java.io.IOException
-import java.lang.reflect.Type
 
 class MainActivity : AppCompatActivity() {
 
-    private val jsonUrl = "https://raw.githubusercontent.com/ssaammii5/TVChannel2/main/file.json"
-    private lateinit var channelMap: Map<String, String>
+    // Local JSON-like data (a map in Kotlin)
+    private val channelMap: Map<String, String> = mapOf(
+        "Channel 24" to "https://www.youtube.com/channel/UCHLqIOMPk20w-6cFgkA90jw/live",
+        "Jamuna TV" to "https://www.youtube.com/channel/UCN6sm8iHiPd0cnoUardDAnw/live",
+        "Independent TV" to "https://www.youtube.com/channel/UCATUkaOHwO9EP_W87zCiPbA/live",
+        "Somoy TV" to "https://www.youtube.com/channel/UCxHoBXkY88Tb8z1Ssj6CWsQ/live",
+        "News 24" to "https://www.youtube.com/channel/UCPREnbhKQP-hsVfsfKP-mCw/live",
+        "Channel i" to "https://www.youtube.com/channel/UC8NcXMG3A3f2aFQyGTpSNww/live",
+        "ATN News" to "https://www.youtube.com/channel/UCt8llfhkf9LRzjTEnbG2qnQ/live",
+        "RTV" to "https://www.youtube.com/channel/UC2P5Fd5g41Gtdqf0Uzh8Qaw/live",
+        "DBC News" to "https://www.youtube.com/channel/UCUvXoiDEKI8VZJrr58g4VAw/live",
+        "NTV" to "https://www.youtube.com/channel/UC0V3IJCnr6ZNjB9t_GLhFFA/live",
+        "Ekhon TV" to "https://www.youtube.com/channel/UCWVqdPTigfQ-cSNwG7O9MeA/live"
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Fetch the JSON data from GitHub and update the links
-        fetchJsonData()
-    }
-
-    private fun fetchJsonData() {
-        val client = OkHttpClient()
-        val request = Request.Builder().url(jsonUrl).build()
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                runOnUiThread {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Failed to load channel links",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                Log.e("MainActivity", "Failed to fetch JSON", e)
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                if (!response.isSuccessful) {
-                    Log.e("MainActivity", "Unexpected response code: ${response.code}")
-                    runOnUiThread {
-                        Toast.makeText(
-                            this@MainActivity,
-                            "Failed to load channel links",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                    return
-                }
-
-                response.body?.let { responseBody ->
-                    val jsonString = responseBody.string()
-
-                    try {
-                        // Parse JSON with proper type
-                        val gson = Gson()
-                        val type: Type = object : TypeToken<Map<String, String>>() {}.type
-                        channelMap = gson.fromJson(jsonString, type)
-
-                        // Once JSON is fetched, create dynamic TextViews
-                        runOnUiThread {
-                            createDynamicChannelViews()
-                        }
-                    } catch (e: Exception) {
-                        Log.e("MainActivity", "Failed to parse JSON", e)
-                        runOnUiThread {
-                            Toast.makeText(
-                                this@MainActivity,
-                                "Error parsing channel links",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-                }
-            }
-        })
+        // Directly create dynamic TextViews with the local data
+        createDynamicChannelViews()
     }
 
     private fun createDynamicChannelViews() {
@@ -113,7 +63,7 @@ class MainActivity : AppCompatActivity() {
             // Set the click listener for each dynamically created TextView
             textView.setOnClickListener {
                 val intentApp = Intent(Intent.ACTION_VIEW, Uri.parse(channelUrl)).apply {
-                    `package` = "com.teamsmart.videomanager.tv"
+                    `package` = "com.teamsmart.videomanager.tv" // Use YouTube app package name
                 }
                 val intentBrowser = Intent(Intent.ACTION_VIEW, Uri.parse(channelUrl))
 
